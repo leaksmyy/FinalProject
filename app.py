@@ -87,11 +87,8 @@ def expense_input():
             for i, category_name in enumerate(expense_category_list):
                 print(f" {i+1}. {category_name}")
 
-            # the number for each category 
             value_range = f"[1 - {len(expense_category_list)}]"
-            # should catch exception of any stirng input
-            selected_index = int(input(f"Enter a category number {value_range}:")) -1 # minus 1 is to tell the program it is actually the 0 index
-            # easy for later changes in the category
+            selected_index = int(input(f"Enter a category number {value_range}:")) -1 
             if selected_index in range(len(expense_category_list)):
                 selected_category = expense_category_list[selected_index]
                 new_expense = Expense(name=expense_name, category=selected_category,amount=amount_spent, date=date_spent_on)
@@ -105,7 +102,6 @@ def expense_input():
 
 def saving_data_to_file(expense: Expense, expense_file):
     print(f"Saving {expense} to {expense_file}")
-    # a for append 
     with open(expense_file, "a") as f:
         f.write(f"{expense.name},{expense.amount},{expense.category},{expense.date} \n")
 
@@ -149,8 +145,6 @@ def editing_expense(expense_file):
                 expense.name = input(f"Enter new name for [{expense.name}]: ").strip() or expense.name
                 expense.amount = float(input(f"Enter new price [{expense.amount}]: ") or expense.amount)
                 expense.category = input(f"Enter new category [{expense.category}]: ").strip() or expense.category
-                # new_date = input(f"Enter new date (YYYY-MM-DD) [{expense.date}]: ").strip()
-                # expense.date = datetime.datetime.strptime(new_date, "%Y-%m-%d").date() if new_date else expense.date
                 new_date = input_date()
                 expense.date = new_date
                 break
